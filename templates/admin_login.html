@@ -14,17 +14,20 @@
     <div id="main">
         <div id="canvas">
             <div id="form-body">
-                <a href="./home.html" style="position:absolute;right:0px; top: 10px;" class="btn btn-primary">Back</a>
                 <h2>Admin Login Form</h2>
-                <form action="">
+                <p> {% if message %}
+                    {{message}}
+                    {% endif %}
+                </p>
+                <form action="/admin_login" method="post">
                     <form>
                         <div class="mb-3">
                             <label for="name">Username</label>
-                            <input type="name" class="form-control" id="name">
+                            <input type="name" class="form-control" id="name" name="username">
                         </div>
                         <div class="mb-3">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" class="form-control" id="password" name="password">
                         </div>
                         <div class="text-center">
                             <!-- text-center is bootstrap class  -->
