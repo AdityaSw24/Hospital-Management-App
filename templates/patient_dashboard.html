@@ -26,14 +26,14 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="./update_patient_own.html">Edit
+                                <a class="nav-link active" aria-current="page" href="/update_patient_own">Edit
                                     Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">History</a>
+                                <a class="nav-link" href="/patient_treatment_history">History</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="./home.html">Logout</a>
+                                <a class="nav-link active" aria-current="page" href="/home">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -45,10 +45,12 @@
                 <div class="Departments table">
                     <table class="table">
                         <tbody>
+                            {% for department in departments %}
                             <tr>
-                                <td>Cardiology</td>
-                                <td><a href="./dept_details.html" class="btn btn-primary">View Details</a></td>
+                                <td>{{department.name}}</td>
+                                <td><a href="patient/{{this_user.id}}/department/{{department.id}}" class="btn btn-primary">View Details</a></td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

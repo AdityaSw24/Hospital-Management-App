@@ -16,7 +16,7 @@
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <h1>Department of Oncology</h1>
+                        <h1>Department of {{department.name}}</h1>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -29,7 +29,7 @@
                                 <a class="nav-link" href="#">History</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="./home.html">Logout</a>
+                                <a class="nav-link active" aria-current="page" href="/home">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -38,21 +38,24 @@
             <div id="content">
                 <div id="description">
                     <h2>Overview</h2>
-                    The Oncology department in a hospital specializes in the diagnosis, treatment, and care of cancer
-                    patients through
-                    advanced medical, surgical, and radiation therapies.
+                    {{department.descrption}}
                 </div>
                 <br>
                 <h3 class="headings">Doctor's list</h3>
                 <div class="Dept-Doctors table">
                     <table class="table">
                         <tbody>
+                            {% for doctor in department.doctors %}
                             <tr>
-                                <td>Dr. abcde</td>
-                                <td><a href="./doctor_availability.html" class="btn btn-primary">Check availability</a>
+                                <td>Dr. {{doctor.username}}</td>
+                                <td><a href="/book_appointment/{{department.id}}/{{doctor.id}}/{{patient.id}}"
+                                        class="btn btn-primary">Check
+                                        availability</a>
                                 </td>
-                                <td><a href="./doctor_info.html" class="btn btn-primary">View Details</a></td>
+                                <td><a href="/department/{{department.id}}/doctor_info/{{doctor.id}}"
+                                        class="btn btn-primary">View Details</a></td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

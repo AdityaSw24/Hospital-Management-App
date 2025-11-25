@@ -25,7 +25,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                        <a href="./home.html">logout</a>
+                        <a href="/">logout</a>
                     </div>
                 </div>
             </nav>
@@ -43,14 +43,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for id,patient in upcoming_patients %}
                             <tr>
-                                <td>1001</td>
-                                <td>Mr. pqrst</td>
-                                <td><a href="" class="btn btn-primary">Update</a></td>
+                                <td>{{id}}</td>
+                                <td>{{patient.username}}</td>
+                                <td><a href="/update_patient_history" class="btn btn-primary">Update</a></td>
                                 <td><a href="" class="btn btn-danger">Cancel</a> <a href="" class="btn btn-success">Mark
                                         as complete</a></td>
 
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -63,16 +65,13 @@
                                 <th scope="row">Patient Name</th>
                                 <th scope="row">Patient History</th>
                             </tr>
+                            {% for id,patient in assigned_patients %}
                             <tr>
-                                <td>1</td>
-                                <td scope="row">Mr pqrst</td>
+                                <td>{{id}}</td>
+                                <td scope="row">{{patient.username}}</td>
                                 <td><a href="" class="btn btn-primary">View</a></td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td scope="row">Mr xyz</td>
-                                <td><a href="" class="btn btn-primary">View</a></td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                     <a href="" class="btn btn-success" style="position:absolute;right:250px;">Provide Availability</a>

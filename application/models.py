@@ -32,15 +32,15 @@ class Doctor(db.Model):
 class DoctorAvailability(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'), nullable=False)
-    shift_name = db.Column(db.String(20), nullable=False)   # e.g. 'morning', 'evening'
-    start_time = db.Column(db.String(), nullable=False)         # e.g. 08:00:00
-    end_time = db.Column(db.String(),nullable=False)    
-
+    shift_1 = db.Column(db.String(), nullable=False)
+    status_shift_1 = db.Column(db.Boolean, default=True, nullable=False)
+    shift_2 = db.Column(db.String(), nullable=False)
+    status_shift_2 = db.Column(db.Boolean, default=True, nullable=False)
     
 class Patient(db.Model):
     id= db.Column(db.Integer,primary_key=True)
     username= db.Column(db.String(), unique=True,nullable=False)
-    password= db.Column(db.String(),unique=True,nullable=False)
+    password= db.Column(db.String(),nullable=False)
     email= db.Column(db.String(),unique=True,nullable=False)
     is_active=db.Column(db.Boolean, default=True, nullable=False)
 
@@ -49,18 +49,20 @@ class Appointment(db.Model):
     id= db.Column(db.Integer,primary_key=True)
     patient_id= db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
     doctor_id= db.Column(db.Integer, db.ForeignKey('doctor.id'), nullable=False)
-    date= db.Column(db.Date, nullable=False)
-    time= db.Column(db.Time, nullable=False)
+    date= db.Column(db.String(), nullable=False)
+    time= db.Column(db.String(), nullable=False)
     status = db.Column(db.String(20), nullable=False)
 
 class Department(db.Model):
     id= db.Column(db.Integer,primary_key=True)
     name= db.Column(db.String(), unique=True,nullable=False)
-    descrption= db.Column(db.String(),unique=True,nullable=False)
-    doctors_registered= db.Column(db.Integer(),unique=True,nullable=False)
+    descrption= db.Column(db.String(),nullable=False)
+    doctors_registered= db.Column(db.Integer(),unique=False,default=0,nullable=False)
 
 class Treatment(db.Model):
     id= db.Column(db.Integer,primary_key=True)
     appointment_id= db.Column(db.Integer, db.ForeignKey('appointment.id'), nullable=False)
+    visit_type= db.Column(db.String(), nullable=False)
+    test_done= db.Column(db.String(), nullable=False)
     diagnosis= db.Column(db.String(), nullable=False)
     prescription= db.Column(db.String(), nullable=False)
