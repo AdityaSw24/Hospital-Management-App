@@ -37,3 +37,15 @@
     padding: 4px;
     margin-top: 10px;
 }
+
+.slot-button.AVAILABLE {
+    color: green;
+}
+
+.slot-button.BOOKED {
+    color: red;
+}
+
+.slot-button.CANCELED {
+    color: gray;
+}

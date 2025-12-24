@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .d-flex {
+            position: absolute;
+            right: -130px;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,24 +23,34 @@
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <h1>Welcome {{this_user.username}}</h1>
+                        <h1>Welcome {{patient.username}}</h1>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    <form class="d-flex" action="/doctor&department_search" role="search">
+                        <input class="form-control me-2 w-25" type="search" placeholder="Search" aria-label="Search"
+                            name="search" />
+                        <select class="form-control me-2 w-25" aria-label="Default select example" name="key">
+                            <option selected> Select </option>
+                            <option value="department">Department</option>
+                            <option value="doctor">Doctor</option>
+                        </select>
+                        <input class="btn btn-outline-primary" type="submit" value="Search">
+                    </form>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/update_patient_own">Edit
+                                <a class="nav-link active" aria-current="page" href="/edit_patient/{{patient.id}}">Edit
                                     Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/patient_treatment_history">History</a>
+                                <a class="nav-link" href="/view_treatment_history/{{patient.id}}">History</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/home">Logout</a>
+                                <a class="nav-link active" aria-current="page" href="/patient_login">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -48,7 +65,8 @@
                             {% for department in departments %}
                             <tr>
                                 <td>{{department.name}}</td>
-                                <td><a href="patient/{{this_user.id}}/department/{{department.id}}" class="btn btn-primary">View Details</a></td>
+                                <td><a href="/patient/{{patient.id}}/department/{{department.id}}"
+                                        class="btn btn-primary">View Details</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -58,6 +76,7 @@
                 <div class="Assigned patients table">
                     <table class="table">
                         <tbody>
+                            {% for appointment, doctor, patient in appointments %}
                             <tr>
                                 <th>Sr No.</th>
                                 <th>Doctor Name</th>
@@ -66,12 +85,14 @@
                                 <th>Time</th>
                             </tr>
                             <tr>
-                                <td>1001.</td>
-                                <td>Dr. abcde</td>
-                                <td>General</td>
-                                <td>24/09/2025</td>
-                                <td>08am - 12pm</td>
-                                <td><a href="" class="btn btn-danger">cancel</a></td>
+                                <td>{{ loop.index0 +1 }}</td>
+                                <td>Dr. {{ doctor.username }}</td>
+                                <td>{{ doctor.specialization }}</td>
+                                <td>{{ appointment.date }}</td>
+                                <td>{{ appointment.time }}</td>
+                                <td><a href="/patient_canceled_appoinment/{{appointment.id}}"
+                                        class="btn btn-danger">cancel</a></td>
+                                {% endfor %}
                             </tr>
                         </tbody>
                     </table>

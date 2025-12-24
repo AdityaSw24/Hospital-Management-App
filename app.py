@@ -5,6 +5,7 @@ app=None
 # App description and config
 def create_app():
     app=Flask(__name__)
+    app.secret_key = 'super_secret'
     app.debug=True
     app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///hospital_management.sqlite3'
     db.init_app(app)
@@ -16,10 +17,10 @@ from application.controllers import * # routes are imported after app creation.
 
 if __name__ == "__main__":
     # db.create_all()
-    # user1=User(username="admin123",password="password",type=0)
+    # user1=User(username="admin",password="admin",type=0)
     # db.session.add(user1)
     # db.session.commit()
-    # if User.query.filter_by(username="admin123").first():
+    # if User.query.filter_by(username="admin").first():
     #     admin1=Admin(id=user1.id,username=user1.username,password=user1.password)
     #     db.session.add(admin1)
     #     db.session.commit()

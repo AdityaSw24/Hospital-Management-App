@@ -16,7 +16,7 @@
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <h1>Welcome {{this_user.username}}</h1>
+                        <h1>Welcome {{doctor.username}}</h1>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -25,7 +25,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                        <a href="/">logout</a>
+                        <a href="/doctor_login">logout</a>
                     </div>
                 </div>
             </nav>
@@ -45,11 +45,17 @@
                         <tbody>
                             {% for id,patient in upcoming_patients %}
                             <tr>
-                                <td>{{id}}</td>
+                                <td>{{loop.index0+1}}</td>
                                 <td>{{patient.username}}</td>
-                                <td><a href="/update_patient_history" class="btn btn-primary">Update</a></td>
-                                <td><a href="" class="btn btn-danger">Cancel</a> <a href="" class="btn btn-success">Mark
-                                        as complete</a></td>
+                                <td><a href="/update_patient_history/{{patient.id}}/{{doctor.id}}"
+                                        class="btn btn-primary">Update</a>
+                                </td>
+                                <td><a href="/appointment_canceled/{{patient.id}}/{{doctor.id}}"
+                                        class="btn btn-danger">Cancel</a>
+                                    <a href="/appointment_complete/{{patient.id}}/{{doctor.id}}"
+                                        class="btn btn-success">Mark
+                                        as complete</a>
+                                </td>
 
                             </tr>
                             {% endfor %}
@@ -69,12 +75,13 @@
                             <tr>
                                 <td>{{id}}</td>
                                 <td scope="row">{{patient.username}}</td>
-                                <td><a href="" class="btn btn-primary">View</a></td>
+                                <td><a href="/view_treatment_history/{{patient.id}}" class="btn btn-primary">View</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="" class="btn btn-success" style="position:absolute;right:250px;">Provide Availability</a>
+                    <a href="/provide_availability/{{doctor.id}}" class="btn btn-success"
+                        style="position:absolute;right:250px;">Provide Availability</a>
                 </div>
             </div>
         </div>

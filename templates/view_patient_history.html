@@ -14,11 +14,13 @@
     <div id="main">
         <div id="canvas">
             <h2 class="headings">Patient History</h2>
-            <a href="./admin_dashboard.html" style="position:absolute;right:0px; top: 10px;" class="btn btn-primary">Back</a>
+            <a href="./admin_dashboard.html" style="position:absolute;right:0px; top: 10px;"
+                class="btn btn-primary">Back</a>
             <div id="descrption">
-                Patient Name: Mr XYZ <br>
-                Doctor's Name: Dr ABCDE <br>
-                Department: Cardiology <br>
+                {% for treatment,doctor in treatments %}
+                Patient Name: {{patient.username}} <br>
+                Doctor's Name: {{doctor.username}} <br>
+                Department: {{doctor.specialization}} <br>
             </div>
             <div class="history table">
                 <table class="table">
@@ -34,15 +36,17 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>In-person</td>
-                            <td>ECG</td>
-                            <td>Abnormal Heartbeats</td>
-                            <td>Excercise Daily</td>
-                            <td>Medicine 1</td>
+                            <td>{{loop.index0 +1 }} </td>
+                            <td> {{treatment.visit_type}}</td>
+                            <td> {{treatment.test_done}}</td>
+                            <td> {{treatment.diagnosis}}</td>
+                            <td> {{treatment.prescription}}</td>
+                            <td> {{treatment.medicines}}</td>
                         </tr>
                     </tbody>
                 </table>
+                {% endfor %}
+
             </div>
         </div>
 </body>

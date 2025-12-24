@@ -11,7 +11,7 @@
 
     <style>
         .table {
-            max-height: 210px;
+            max-height: 100px;
             overflow-y: auto;
         }
     </style>
@@ -32,13 +32,20 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                        <form class="d-flex" role="search" style="position:absolute;right:0px; padding:10px;">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        <form class="d-flex" action="/search" role="search"
+                            style="position:absolute;right:0px; padding:10px;">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                name="search" />
+                            <select class="form-control me-2" aria-label="Default select example" name="key">
+                                <option selected> Select </option>
+                                <option value="patient">Patient</option>
+                                <option value="doctor">Doctor</option>
+                            </select>
+                            <input class="btn btn-outline-primary" type="submit" value="Search">
                         </form>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                            <a href="./admin_login.html">logout</a>
+                            <a href="/admin_login">logout</a>
                         </div>
                     </div>
                 </div>
@@ -53,11 +60,13 @@
                         <tbody>
                             {% for doctor in doctors %}
                             <tr>
-                                <th scope="row">{{ doctor.id }}</th>
+                                <th scope="row">{{ loop.index0+1 }}</th>
                                 <th> Dr {{ doctor.username }}</th>
-                                <td><a href="" class="btn btn-warning">Edit</a></td>
-                                <td><a href="" class="btn btn-danger">Delete</a></td>
-                                <td><a href="" class="btn btn-secondary">Blacklist</a></td>
+                                <td><a href="/edit_doctor_profile/{{doctor.id}}" class="btn btn-warning">Edit</a></td>
+                                <td><a href="/delete_doctor/{{this_user.username}}/{{doctor.id}}"
+                                        class="btn btn-danger">Delete</a></td>
+                                <td><a href="/blacklist_doctor/{{doctor.id}}" class="btn btn-secondary">Blacklist</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -75,11 +84,12 @@
                         <tbody>
                             {% for patient in patients %}
                             <tr>
-                                <th scope="row">{{patient.id}} </th>
+                                <th scope="row">{{loop.index0+1}} </th>
                                 <th>{{patient.username}}</th>
-                                <td><a href="" class="btn btn-warning">Edit</a></td>
-                                <td><a href="" class="btn btn-danger">Delete</a></td>
-                                <td><a href="" class="btn btn-secondary">Blacklist</a></td>
+                                <td><a href="/edit_patient/{{patient.id}}" class="btn btn-warning">Edit</a></td>
+                                <td><a href="delete_patient/{{patient.id}}" class="btn btn-danger">Delete</a></td>
+                                <td><a href="/blacklist_patient/{{patient.id}}" class="btn btn-secondary">Blacklist</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -98,14 +108,43 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {%for appointment, patient, doctor in upcoming_appointments %}
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mr xyz</td>
-                                <td>Dr pqrst</td>
-                                <td>Cardiology</td>
-                                <td><a href="./patient_history.html" class="btn btn-primary">View</a></td>
+                                <th scope="row">{{loop.index0+1}}</th>
+                                <td>{{patient.username}}</td>
+                                <td>{{doctor.username}}</td>
+                                <td>{{doctor.specialization}}</td>
+                                <td><a href="/view_treatment_history/{{patient.id}}" class="btn btn-primary">View</a>
+                                </td>
                             </tr>
                         </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+                <h3 class="headings">Completed appointments</h3>
+                <div class="Appointments table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sr no.</th>
+                                <th scope="col">Patient Name</th>
+                                <th scope="col">Doctor Name</th>
+                                <th scope="col">Department</th>
+                                <th scope="col">Patient History</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for appointment, patient, doctor in past_appointments %}
+                            <tr>
+                                <th scope="row">{{loop.index0+1}}</th>
+                                <td>{{patient.username}}</td>
+                                <td>{{doctor.username}}</td>
+                                <td>{{doctor.specialization}}</td>
+                                <td><a href="/view_treatment_history/{{patient.id}}" class="btn btn-primary">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
                     </table>
                 </div>
             </div>

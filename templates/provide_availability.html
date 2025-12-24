@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Appointment Booking</title>
+    <title>Provide Availability</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -32,7 +32,7 @@
                                 <th>Evening</th>
                             </tr>
                         </thead>
-                        <form action="/book_appointment/{{department.id}}/{{doctor.id}}/{{patient.id}}" method="post">
+                        <form action="/provide_availability/{{doctor.id}}" method="post">
                             <tbody>
                                 {% for day, shifts in f_dict.items() %}
                                 {% for shift in shifts %}
@@ -51,24 +51,26 @@
                                     {% set class2 = slot2_status %}
 
                                     <td>
-                                        <input type="radio" id="slot_{{ loop.index }}" name="selected_slot"
-                                            value="{{ val1 }}" {% if slot1_status=='BOOKED' or slot1_status=='CANCELED'
-                                            %} disabled {% endif %}>
-                                        <label for="slot_{{ loop.index }}" class="slot-button {{ class1 }}">{{ slot1
-                                            }}</label>
+                                        <label for="slot_{{ loop.index }}" class="slot-button {{ class1 }}">
+                                            {{slot1}}
+                                            <input type="checkbox" id="slot_{{ loop.index }}" name="selected_slot"
+                                                value="{{ val1 }}" {% if slot1_status=='BOOKED' or
+                                                slot1_status=='CANCELED' %} disabled {% endif %}>
+                                        </label>
                                     </td>
 
                                     <td>
-                                        <input type="radio" id="slot_{{ loop.index + 10}}" name="selected_slot"
-                                            value="{{ val2 }}" {% if slot2_status=='BOOKED' or slot2_status=='CANCELED'
-                                            %} disabled {% endif %}>
-                                        <label for="slot_{{ loop.index + 10}}" class="slot-button {{ class2 }}">{{
-                                            slot2 }}</label>
+                                        <label for="slot_{{ loop.index +10 }}" class="slot-button {{ class2 }}">
+                                            {{slot2}}
+                                            <input type="checkbox" id="slot_{{ loop.index + 10 }}" name="selected_slot"
+                                                value="{{ val2 }}" {% if slot2_status=='BOOKED' or
+                                                slot2_status=='CANCELED' %} disabled {% endif %}>
+                                        </label>
                                     </td>
                                 </tr>
                                 {% endfor %}
                                 {% endfor %}
-                                <input type="submit" id="nav-button" class="btn btn-primary" value="Book Appointment">
+                                <input type="submit" id="nav-button" class="btn btn-primary" value="Save">
                             </tbody>
                         </form>
                     </table>

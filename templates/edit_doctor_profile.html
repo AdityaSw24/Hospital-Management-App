@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Doctor Profile</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+        #form-body {
+            width: 400px;
+            height: 660px;
+            margin-top: 75px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="canvas">
+            <div id="form-body">
+                <h2>Update Doctor Details</h2>
+                <form action="/edit_doctor_profile/{{doctor.id}}" method="POST">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name">Username</label>
+                            <input type="name" value="{{doctor.username}}" class="form-control" id="name"
+                                name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password">Set password</label>
+                            <input type="password" value="{{doctor.password}}" class="form-control" id="password"
+                                name="password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="text" value="{{doctor.email}}" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="spec">Specialization</label>
+                            <input type="text" value="{{doctor.specialization}}" class="form-control" id="spec"
+                                name="spec">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exp">Experience(years)</label>
+                            <input type="number" value="{{doctor.experience}}" class="form-control" id="exp" name="exp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="morning_slot">Morning:</label>
+                            <select id="morning_slot" name="morning_slot" required>
+                                <option value="">-- Select Morning Slot --</option>
+                                <option value="9:00|11:00" {% if previous_morning_slot=="9:00|11:00" %}selected{% endif
+                                    %}>9:00AM - 11:00PM</option>
+                                <option value="10:00|1:00" {% if previous_morning_slot=="10:00|1:00" %}selected{% endif
+                                    %}>10:00AM - 1:00PM</option>
+                                <option value="11:00|2:00" {% if previous_morning_slot=="11:00|2:00" %}selected{% endif
+                                    %}>11:00AM - 2:00PM</option>
+                            </select>
+
+                            <br><br>
+                            <label for="evening_slot">Evening:</label>
+                            <select id="evening_slot" name="evening_slot" required>
+                                <option value="">-- Select Evening Slot --</option>
+                                <option value="5:00|8:00" {% if previous_evening_slot=="5:00|8:00" %}selected{% endif
+                                    %}>5:00PM - 8:00PM</option>
+                                <option value="6:00|9:00" {% if previous_evening_slot=="6:00|9:00" %}selected{% endif
+                                    %}>6:00PM - 9:00PM</option>
+                                <option value="7:00|10:00" {% if previous_evening_slot=="7:00|10:00" %}selected{% endif
+                                    %}>7:00PM - 10:00PM</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-primary" value="Update Doctor">
+                            <br>
+                        </div>
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
